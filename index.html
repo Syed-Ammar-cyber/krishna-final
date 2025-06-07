@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Initiatives</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        /* Add  mesh background */
+        body {
+            background: linear-gradient(120deg, #f8f9fa 0%, #e9ecef 100%);
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(255,255,255,0.8) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(255,255,255,0.8) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(255,255,255,0.8) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(255,255,255,0.8) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Logo styles */
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logo-img {
+            height: 60px;
+            width: 75px;
+        }
+
+        /* Typewriter styles */
+        .typewriter-text {
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: blink 0.75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-logo-img {
+                height: 40px;
+                width: auto;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .geo-circle-img {
+                width: 120px;
+                height: 120px;
+            }
+            .geo-location-name {
+                font-size: 0.8rem;
+            }
+        }
+
+        .circular-gallery {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        .circular-gallery:active {
+            cursor: grabbing;
+        }
+
+        .geo-circles {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .geo-location {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .geo-circle-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            background: #fff;
+            transition: transform 0.2s;
+            margin-bottom: 0.8rem;
+        }
+
+        .geo-location-name {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-weight: 500;
+            max-width: 150px;
+        }
+
+        .geo-circle-img:hover {
+            transform: scale(1.08);
+        }
+
+        /* Strategies Section Styles */
+        .strategies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            justify-items: center;
+        }
+
+        .strategy-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            text-align: left;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .strategy-icon {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .strategy-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .strategy-card h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: left;
+        }
+
+        .strategy-card ul {
+            padding-left: 1.2em;
+            margin: 0;
+        }
+
+        .strategy-card li {
+            margin-bottom: 0.5em;
+        }
+
+        .strategy-card p {
+            color: var(--text-color-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .strategies-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+        }
+
+        .footer-contact-label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1em;
+        }
+        .footer-contact-link {
+            color: #fff;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        .footer-contact-link:hover {
+            color: var(--accent);
+        }
+        .footer-section i {
+            color: var(--accent);
+            margin-right: 0.5em;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        .footer-section p {
+            margin-bottom: 1.2em;
+            line-height: 1.7;
+        }
+
+        /* Clientele Section Styles */
+        .logo-marquee {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .logo-track {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            width: fit-content;
+        }
+
+        .logo-item {
+            flex: 0 0 auto;
+            width: 180px;
+            height: 80px;
+            margin: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Pause animation on hover */
+        .logo-marquee:hover .logo-track {
+            animation-play-state: paused;
+        }
+
+        /* Add gradient overlays for smooth fade */
+        .logo-marquee::before,
+        .logo-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .logo-marquee::before {
+            left: 0;
+            background: linear-gradient(to right, #fff, transparent);
+        }
+
+        .logo-marquee::after {
+            right: 0;
+            background: linear-gradient(to left, #fff, transparent);
+        }
+
+        @media (max-width: 768px) {
+            .logo-item {
+                width: 140px;
+                height: 60px;
+                margin: 0 1rem;
+            }
+            .logo-marquee::before,
+            .logo-marquee::after {
+                width: 100px;
+            }
+        }
+
+        /* Scroll to top button styles */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .scroll-to-top i {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Add box pattern background */
+        main {
+            position: relative;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(0,35,102,0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0,35,102,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-container">
+                <img src="logo.png" alt="Krishna Initiatives Logo" class="nav-logo-img">
+                <a href="/" class="nav-logo">Kri-Krishna Initiatives Pvt. Ltd.</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="close-menu" aria-label="Close menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Kri-Krishna Rural Initiatives Pvt. Ltd.</h1>
+                <p class="typewriter-text" id="typewriter">Excellence in Every Endeavor</p>
+            </div>
+        </section>
+
+        <!-- About Company Section -->
+        <section class="about section-padding">
+            <div class="container">
+                <h2>About the Company</h2>
+                <p>At Krishna Rural Initiatives Pvt. Ltd., we are experts at connecting brands with the heart of India — its rural, urban and semi-urban sectors. Focused firmly on Below-the-Line (BTL) brand activation, we create and implement high-impact, on-ground campaigns that engage brands with people in memorable, meaningful moments.</p>
+                <p>We pride ourselves on being able to build interactive consumer interaction projects that incorporate creativity with awareness in order to trigger true conversations and cultivate brand advocacy. From rural roadshow, to experiential kiosk, to hyperlocal event, each point of interaction makes a lasting impact.</p>
+                <p>Krishna Rural Initiatives focuses on Urban and Rural Marketing, Sales Promotion Activities and provides a unique channel for communication and promotion campaigns where other cradle to the marketing process are challenging since 2005.</p>
+            </div>
+        </section>
+
+        <!-- Geographical Reach Section -->
+        <section class="geographical-reach section-padding">
+            <div class="container">
+                <h2>Our Geographical Reach</h2>
+                <div class="geo-circles">
+                    <div class="geo-location">
+                        <img src="placeholder1.jpg" alt="Mumbai" class="geo-circle-img">
+                        <span class="geo-location-name">Delhi</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder2.jpg" alt="Delhi" class="geo-circle-img">
+                        <span class="geo-location-name">Rajasthan</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder3.jpg" alt="Bangalore" class="geo-circle-img">
+                        <span class="geo-location-name">Haryana</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder4.jpg" alt="Chennai" class="geo-circle-img">
+                        <span class="geo-location-name">Bihar</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder5.jpg" alt="Kolkata" class="geo-circle-img">
+                        <span class="geo-location-name">Uttarakhand</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder6.jpg" alt="Hyderabad" class="geo-circle-img">
+                        <span class="geo-location-name">Uttar Pradesh</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder7.jpg" alt="Pune" class="geo-circle-img">
+                        <span class="geo-location-name">Madhya Pradesh</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder8.jpg" alt="Ahmedabad" class="geo-circle-img">
+                        <span class="geo-location-name">Odisha</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder9.jpg" alt="Jaipur" class="geo-circle-img">
+                        <span class="geo-location-name">West Bengal</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder10.jpg" alt="Lucknow" class="geo-circle-img">
+                        <span class="geo-location-name">Jammu & Kashmir</span>
+                    </div>
+                    <div class="geo-location">
+                        <img src="placeholder11.jpg" alt="Chandigarh" class="geo-circle-img">
+                        <span class="geo-location-name">Jharkhand</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Strategies Section -->
+        <section class="strategies section-padding">
+            <div class="container">
+                <h2>Our Strategies</h2>
+                <div class="strategies-grid">
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-car" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+                        <h3>Automobile Branding</h3>
+                        <ul>
+                            <li>Rural & Urban Van</li>
+                            <li>Branding on Bus/Auto/Bikes</li>
+                            <li><a target="_blank" href="strat1.jpg"> Learn More~</a></li>
+                        </ul>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-users" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+                        <h3>Interactive Marketing</h3>
+                        <ul>
+                            <li>Road Shows</li>
+                            <li>Foot soldiers</li>
+                            <li>Shoppoing Mall Activation</li>
+                            <li><a target="_blank" href="strat2.png"> Learn More~</a></li>
+                        </ul>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-school" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+        
+                        <h3>Institutional Campaign</h3>
+                        <ul>
+                            <li>Schools</li>
+                            <li>Colleges</li>
+                            <li>Coaching Institutes</li>
+                            <li><a target="_blank" href="strat3.jpg"> Learn More~</a></li>
+                        </ul>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-print" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+                        <h3>Print Promotions</h3>
+                        <ul>
+                            <li>Wall Paintings</li>
+                            <li>POP Displays</li>
+                            <li><a target="_blank" href="strat4.jpg"> Learn More~</a></li>
+                        </ul>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-store" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+                        <h3>Melas/Haats</h3>
+                        <ul>
+                            <li>Direct Consumer Approach</li>
+                            <li>Product Promotion and Sales atdiscounted prices for appeasing theconsumer</li>
+                            <li><a target="_blank" href="strat5.jpg"> Learn More~</a></li>
+                            <!-- <li>Community gatherings</li> -->
+                        </ul>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-icon" style="text-align:center;">
+                            <i class="fas fa-people-carry" style="font-size:2rem;color:var(--primary);"></i>
+                        </div>
+                        <h3>Wholesaler/Dealer Campaign</h3>
+                        <ul>
+                            <li>Store/ Retailer/ Dealer boards,fabrications and installations</li>
+                                <li>Wholesale/ Dealer Activation In ShopBranding</li>
+                            <li><a target="_blank" href="strat6.jpg"> Learn More~</a></li>
+                            <!-- <li>Product training</li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="width: 100%; display: flex; justify-content: center; margin: 1rem 0 3rem;">
+            <a href="company_details.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background-color: var(--primary); color: white; text-decoration: none; font-weight: 500; padding: 0.8rem 1.5rem; border-radius: 5px; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <i class="fas fa-file-pdf"></i>
+                View Company Details
+            </a>
+        </div>
+
+        <!-- Directors Section -->  
+        <section class="directors section-padding">
+            <div class="container">
+                <h2>Our Directors</h2>
+                <div class="directors-grid">
+                    <div class="director-card">
+                        <h3>Mr. Rajneesh Tyagi</h3>
+                        <p>With over 25 years of industry experience, Mr. Rajneesh Tyagi leads our strategic initiatives
+                           and global operations.</p>
+                    </div>
+                    <div class="director-card">
+                        <h3>Ms. Riti Tyagi</h3>
+                        <p>A visionary leader with expertise in innovation and sustainable growth,
+                           Ms. Riti Tyagi oversees our technological advancement.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clientele Section -->
+        <section class="clientele section-padding">
+            <div class="container">
+                <h2>Our Clientele</h2>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <!-- First set of logos -->
+                        <div class="logo-item">
+                            <img src="client1.png" alt="Client 1">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client2.png" alt="Client 2">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client3.png" alt="Client 3">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client4.png" alt="Client 4">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client5.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client6.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client7.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client8.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client9.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client10.png" alt="Client 5">
+                        </div>
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="logo-item">
+                            <img src="client1.png" alt="Client 1">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client2.png" alt="Client 2">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client3.png" alt="Client 3">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client4.png" alt="Client 4">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client5.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client6.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client7.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client8.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client9.png" alt="Client 5">
+                        </div>
+                        <div class="logo-item">
+                            <img src="client10.png" alt="Client 5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Krishna Initiatives is dedicated to delivering excellence and innovation in every project we undertake.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="footer-contact-label">Address:</span><br>
+                    C - 50 Royal City,<br>
+                    Bijnor Rd.<br>
+                    Lucknow
+                </p>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <span class="footer-contact-label">Phone:</span><br>
+                    <strong>Ms. Riti Tyagi</strong> - <a href="tel:+919335025581" class="footer-contact-link">+91 9335025581</a><br>
+                    <strong>Mr. Rajneesh Tyagi</strong> - <a href="tel:+917275021799" class="footer-contact-link">+91 7275021799</a>
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <span class="footer-contact-label">Email:</span><br>
+                    <a href="mailto:info.kripvtltd@gmail.com" class="footer-contact-link">info.kripvtltd@gmail.com</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Krishna Initiatives. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Typewriter effect
+        const text = "Excellence in Every Endeavor";
+        const typewriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typewriterElement.textContent = text.substring(0, i + 1);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('.nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Initialize typewriter effect
+        window.addEventListener('load', typeWriter);
+
+        // Scroll to top functionality
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
